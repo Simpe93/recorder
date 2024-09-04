@@ -3,163 +3,84 @@
 #include <QToolButton>
 #include <QHBoxLayout>
 #include <QIcon>
+#include <QFile>
+#include <QDebug>
+#include <QTextStream>
+#include <QStyle>
+#include <QList>
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
   a.setApplicationName("Recording");
 
-  QDialog *dia = new QDialog();
+  QFile stylesheet("/home/simpe/QtProjects/recorder/style.qss");
+  if (stylesheet.open(QIODevice::ReadOnly | QFile::Text)) {
+    QTextStream in(&stylesheet);
+    const QString data = in.readAll();
+    a.setStyleSheet(data);
+    stylesheet.close();
+  }
 
-  QHBoxLayout * layout = new QHBoxLayout();
+  QDialog *dialog = new QDialog();
+
+  QHBoxLayout *layout = new QHBoxLayout();
   layout->setSpacing(0);
 
-  QToolButton * but1 = new QToolButton();
-  QToolButton * but2 = new QToolButton();
-  QToolButton * but3 = new QToolButton();
+  QList<QPair<QString, QString>> data = {
+    {"Screen",    "/home/simpe/QtProjects/recorder/screen.png"},
+    {"Window",    "/home/simpe/QtProjects/recorder/window.png"},
+    {"Selection", "/home/simpe/QtProjects/recorder/selection.png"}
+  };
 
-  but1->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-  but2->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-  but3->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+  QList<QToolButton*> buttons;
 
-  but1->setText("Screen");
-  but2->setText("Window");
-  but3->setText("Selection");
+  int i = 1;
+  for (QPair<QString, QString> entry : data) {
+    QToolButton *button = new QToolButton();
+    button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    button->setText(entry.first);
+    button->setIconSize(QSize(32, 32));
+    button->setIcon(QIcon(entry.second));
 
-  but1->setIconSize(QSize(32, 32));
-  but2->setIconSize(QSize(32, 32));
-  but3->setIconSize(QSize(32, 32));
+    button->setMaximumSize(QSize(100, 100));
+    button->setMinimumSize(QSize(100, 100));
+    button->setFocusPolicy(Qt::NoFocus);
 
-  QIcon test1("/home/simpe/QtProjects/rpmchecker/screen.png");
-  QIcon test2("/home/simpe/QtProjects/rpmchecker/window.png");
-  QIcon test3("/home/simpe/QtProjects/rpmchecker/selection.png");
+    button->setProperty("cssClass", QString("Button%0").arg(i++));
+    button->setCursor(Qt::PointingHandCursor);
 
-  but1->setIcon(test1);
-  but2->setIcon(test2);
-  but3->setIcon(test3);
+    buttons.append(button);
+  }
 
-  but1->setMaximumSize(QSize(100, 100));
-  but1->setMinimumSize(QSize(100, 100));
-  but1->setFocusPolicy(Qt::NoFocus);
+  for (QToolButton *button : buttons) {
+    QObject::connect(button, &QToolButton::clicked, [=](){
+      const QString cssClass = button->property("cssClass").toString();
+      for (QToolButton *b : buttons) {
+        const QString cssStyle = b->property("cssClass").toString();
+        if (cssStyle == cssClass) {
+          b->setProperty("cssClass", QString("%0_Selected").arg(cssStyle));
+        } else {
+          b->setProperty("cssClass", cssStyle.split("_").first());
+        }
 
-  but2->setMaximumSize(QSize(100, 100));
-  but2->setMinimumSize(QSize(100, 100));
-  but2->setFocusPolicy(Qt::NoFocus);
+        dialog->style()->unpolish(b);
+        dialog->style()->polish(b);
+      }
 
-  but3->setMaximumSize(QSize(100, 100));
-  but3->setMinimumSize(QSize(100, 100));
-  but3->setFocusPolicy(Qt::NoFocus);
-
-  but1->setStyleSheet("QToolButton {"
-                      "border-top-left-radius: 20px;"
-                      "border-bottom-left-radius: 20px;"
-                      "border: 2px solid #555;"
-                      "border-right: 0px;"
-                      "background-color: #fff;"
-                      "outline: 0px;"
-                      "}");
-  but2->setStyleSheet("QToolButton {"
-                      "border: 2px solid #555;"
-                      "background-color: #fff;"
-                      "outline: 0px;"
-                      "}");
-  but3->setStyleSheet("QToolButton {"
-                      "border-top-right-radius: 20px;"
-                      "border-bottom-right-radius: 20px;"
-                      "border: 2px solid #555;"
-                      "border-left: 0px;"
-                      "background-color: #fff;"
-                      "outline: 0px;"
-                      "}");
-
-  but1->setCursor(Qt::PointingHandCursor);
-  but2->setCursor(Qt::PointingHandCursor);
-  but3->setCursor(Qt::PointingHandCursor);
-
-  QObject::connect(but1, &QToolButton::clicked, [=]() {
-    but1->setStyleSheet("QToolButton {"
-                        "border-top-left-radius: 20px;"
-                        "border-bottom-left-radius: 20px;"
-                        "border: 2px solid #555;"
-                        "border-right: 0px;"
-                        "background-color: #d6d6d6;"
-                        "outline: 0px;"
-                        "}");
-    but2->setStyleSheet("QToolButton {"
-                        "border: 2px solid #555;"
-                        "background-color: #fff;"
-                        "outline: 0px;"
-                        "}");
-    but3->setStyleSheet("QToolButton {"
-                        "border-top-right-radius: 20px;"
-                        "border-bottom-right-radius: 20px;"
-                        "border: 2px solid #555;"
-                        "border-left: 0px;"
-                        "background-color: #fff;"
-                        "outline: 0px;"
-                        "}");
-  });
-
-  QObject::connect(but2, &QToolButton::clicked, [=]() {
-    but1->setStyleSheet("QToolButton {"
-                        "border-top-left-radius: 20px;"
-                        "border-bottom-left-radius: 20px;"
-                        "border: 2px solid #555;"
-                        "border-right: 0px;"
-                        "background-color: #fff;"
-                        "outline: 0px;"
-                        "}");
-    but2->setStyleSheet("QToolButton {"
-                        "border: 2px solid #555;"
-                        "background-color: #d6d6d6;"
-                        "outline: 0px;"
-                        "}");
-    but3->setStyleSheet("QToolButton {"
-                        "border-top-right-radius: 20px;"
-                        "border-bottom-right-radius: 20px;"
-                        "border: 2px solid #555;"
-                        "border-left: 0px;"
-                        "background-color: #fff;"
-                        "outline: 0px;"
-                        "}");
-  });
-
-  QObject::connect(but3, &QToolButton::clicked, [=]() {
-    but1->setStyleSheet("QToolButton {"
-                        "border-top-left-radius: 20px;"
-                        "border-bottom-left-radius: 20px;"
-                        "border: 2px solid #555;"
-                        "border-right: 0px;"
-                        "background-color: #fff;"
-                        "outline: 0px;"
-                        "}");
-    but2->setStyleSheet("QToolButton {"
-                        "border: 2px solid #555;"
-                        "background-color: #fff;"
-                        "outline: 0px;"
-                        "}");
-    but3->setStyleSheet("QToolButton {"
-                        "border-top-right-radius: 20px;"
-                        "border-bottom-right-radius: 20px;"
-                        "border: 2px solid #555;"
-                        "border-left: 0px;"
-                        "background-color: #d6d6d6;"
-                        "outline: 0px;"
-                        "}");
-  });
+      dialog->update();
+    });
+  }
 
   layout->addStretch(1);
-  layout->addWidget(but1);
-  layout->addWidget(but2);
-  layout->addWidget(but3);
+  for (QToolButton *button : buttons) {
+    layout->addWidget(button);
+  }
   layout->addStretch(1);
 
-  dia->setLayout(layout);
+  dialog->setLayout(layout);
 
-  dia->resize(400, 300);
-  dia->show();
-
-  // Parser parser;
-  // parser.parse();
+  dialog->resize(400, 300);
+  dialog->show();
 
   a.exec();
 

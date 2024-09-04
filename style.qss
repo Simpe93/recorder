@@ -1,0 +1,47 @@
+QToolButton[cssClass="Button1"] {
+ border-top-left-radius: 20px;
+ border-bottom-left-radius: 20px;
+ border: 2px solid #555;
+ border-right: 0px;
+ background-color: #fff;
+ outline: 0px;
+}
+
+QToolButton[cssClass="Button2"] {
+ border: 2px solid #555;
+ background-color: #fff;
+ outline: 0px;
+}
+
+QToolButton[cssClass="Button3"] {
+ border-top-right-radius: 20px;
+ border-bottom-right-radius: 20px;
+ border: 2px solid #555;
+ border-left: 0px;
+ background-color: #fff;
+ outline: 0px;
+}
+
+QToolButton[cssClass="Button1_Selected"] {
+ border-top-left-radius: 20px;
+ border-bottom-left-radius: 20px;
+ border: 2px solid #555;
+ border-right: 0px;
+ background-color: #d6d6d6;
+ outline: 0px;
+}
+
+QToolButton[cssClass="Button2_Selected"] {
+ border: 2px solid #555;
+ background-color: #d6d6d6;
+ outline: 0px;
+}
+
+QToolButton[cssClass="Button3_Selected"] {
+ border-top-right-radius: 20px;
+ border-bottom-right-radius: 20px;
+ border: 2px solid #555;
+ border-left: 0px;
+ background-color: #d6d6d6;
+ outline: 0px;
+}
