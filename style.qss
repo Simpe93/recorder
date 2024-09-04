@@ -1,14 +1,14 @@
 QToolButton[cssClass="Button1"] {
  border-top-left-radius: 20px;
  border-bottom-left-radius: 20px;
- border: 2px solid #555;
+ border: 1px solid #555;
  border-right: 0px;
  background-color: #fff;
  outline: 0px;
 }
 
 QToolButton[cssClass="Button2"] {
- border: 2px solid #555;
+ border: 1px solid #555;
  background-color: #fff;
  outline: 0px;
 }
@@ -16,7 +16,7 @@ QToolButton[cssClass="Button2"] {
 QToolButton[cssClass="Button3"] {
  border-top-right-radius: 20px;
  border-bottom-right-radius: 20px;
- border: 2px solid #555;
+ border: 1px solid #555;
  border-left: 0px;
  background-color: #fff;
  outline: 0px;
@@ -25,14 +25,14 @@ QToolButton[cssClass="Button3"] {
 QToolButton[cssClass="Button1_Selected"] {
  border-top-left-radius: 20px;
  border-bottom-left-radius: 20px;
- border: 2px solid #555;
+ border: 1px solid #555;
  border-right: 0px;
  background-color: #d6d6d6;
  outline: 0px;
 }
 
 QToolButton[cssClass="Button2_Selected"] {
- border: 2px solid #555;
+ border: 1px solid #555;
  background-color: #d6d6d6;
  outline: 0px;
 }
@@ -40,8 +40,54 @@ QToolButton[cssClass="Button2_Selected"] {
 QToolButton[cssClass="Button3_Selected"] {
  border-top-right-radius: 20px;
  border-bottom-right-radius: 20px;
- border: 2px solid #555;
+ border: 1px solid #555;
  border-left: 0px;
  background-color: #d6d6d6;
  outline: 0px;
+}
+
+QGroupBox[cssClass="Group1"] {
+ border-top-left-radius: 20px;
+ border-top-right-radius: 20px;
+ border: 1px solid #555;
+ background-color: #fff;
+}
+
+QGroupBox[cssClass="Group2"] {
+ border: 0px;
+ border-left: 1px solid #555;
+ border-right: 1px solid #555;
+ background-color: #fff;
+}
+
+QGroupBox[cssClass="Group3"] {
+ border-bottom-left-radius: 20px;
+ border-bottom-right-radius: 20px;
+ border: 1px solid #555;
+ background-color: #fff;
+}
+
+QGroupBox[cssClass="RecordGroup"] {
+ border-radius: 20px;
+ border: 1px solid #555;
+ background-color: #fff;
+}
+
+QPushButton[cssClass="RecordButton"] {
+ outline: 0px;
+ border-radius: 15px;
+ border: 1px solid #555;
+}
+
+QPushButton[cssClass="RecordButton"]:focus {
+ outline: 0px;
+ border-radius: 15px;
+ border: 1px solid #555;
+}
+
+QGroupBox[cssClass="Wrapper"] {
+ margin: 0ex;
+ background-color: rgba(255, 255, 255, 100);
+ border-radius: 20px;
+ border: 1px solid #555;
 }
