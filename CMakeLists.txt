@@ -14,7 +14,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Core Xml)
 
 add_executable(recorder
   main.cpp
-  style.qss
+  mydialog.h
+  mydialog.cpp
 )
 target_link_libraries(recorder Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Xml)
 
