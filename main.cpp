@@ -5,6 +5,7 @@
 #include <QStyle>
 
 #include "mydialog.h"
+#include "windowlist.h"
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
@@ -18,7 +19,8 @@ int main(int argc, char *argv[]) {
     stylesheet.close();
   }
 
-  MyDialog *dialog = new MyDialog();
+  WindowList *list = new WindowList();
+  MyDialog *dialog = new MyDialog(list->getImages());
 
   dialog->show();
   a.exec();

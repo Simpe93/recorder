@@ -22,7 +22,7 @@
 #include <QRubberBand>
 #include <QRect>
 
-MyDialog::MyDialog(QWidget* parent) : QDialog(parent), m_selectionEnabled(false), m_rubberBand(nullptr) {
+MyDialog::MyDialog(QList<QImage> images, QWidget* parent) : QDialog(parent), m_images(images), m_selectionEnabled(false), m_rubberBand(nullptr) {
   // setAttribute(Qt::WA_TranslucentBackground);
   // setWindowFlags(Qt::FramelessWindowHint);
 
@@ -52,6 +52,13 @@ void MyDialog::setupUi() {
   buttonLayout->setSpacing(0);
 
   buttonLayout->addStretch(1);
+
+  for (QImage img : m_images) {
+    QPixmap p = QPixmap::fromImage(img);
+    QPushButton * b = new QPushButton("Test");
+    b->setIcon(QIcon(p));
+    layout->addWidget(b);
+  }
 
   QList<QToolButton*> buttons;
 

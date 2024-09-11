@@ -3,13 +3,15 @@
 
 #include <QDialog>
 #include <QPoint>
+#include <QList>
+#include <QImage>
 
 class QRubberBand;
 
 class MyDialog : public QDialog {
   Q_OBJECT
 public:
-  MyDialog(QWidget *parent = nullptr);
+  MyDialog(QList<QImage> images, QWidget *parent = nullptr);
 
 protected:
   void mousePressEvent(QMouseEvent *event);
@@ -20,6 +22,8 @@ private:
   void setupUi();
 
 private:
+  QList<QImage> m_images;
+
   bool m_selectionEnabled;
 
   QRubberBand *m_rubberBand;

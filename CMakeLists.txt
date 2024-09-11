@@ -16,8 +16,10 @@ add_executable(recorder
   main.cpp
   mydialog.h
   mydialog.cpp
+  windowlist.h
+  windowlist.cpp
 )
-target_link_libraries(recorder Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Xml)
+target_link_libraries(recorder Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Xml X11)
 
 include(GNUInstallDirs)
 install(TARGETS recorder
